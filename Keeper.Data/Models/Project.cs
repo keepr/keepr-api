@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Keeper.Data.Models
+{
+    public class Project
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public double Budget { get; set; }
+        public string Currency { get; set; }
+        public double HourlyRate { get; set; }
+        public List<Task> Tasks {get;set;}
+        public DateTime Created { get; set; }
+        public DateTime? Modified { get; set; }
+
+        // FK
+        public int ClientId { get; set; }
+        public Client Client { get; set; }
+    }
+}
