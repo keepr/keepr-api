@@ -64,10 +64,10 @@ namespace Keeper.Data.Managers
         public async Task<User> GetUserByLoginAsync(string email, string password)
         {
             var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Email == email);
-            
+
             // check if salt + password combination matches with
             // what's stored in db
-            if (user != null) 
+            if (user != null)
             {
                 var byteSalt = Convert.FromBase64String(user.Salt);
                 var hashed = HashPassword(password, byteSalt);
@@ -119,6 +119,60 @@ namespace Keeper.Data.Managers
             return false;
         }
 
+        public async Task<User> UpdateUserAsync(int id, string firstName, string lastName, string email, string address,
+            string password, string currency, double? hourlyRate)
+        {
+            var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == id);
+
+            if (user != null)
+            {
+                if (!string.IsNullOrEmpty(firstName))
+                {
+                    user.FirstName = firstName;
+                }
+
+                if (!string.IsNullOrEmpty(lastName))
+                {
+                    user.LastName = lastName;
+                }
+
+                if (!string.IsNullOrEmpty(address))
+                {
+                    user.Address = address;
+                }
+
+                if (!string.IsNullOrEmpty(email))
+                {
+                    user.Email = email;
+                }
+
+                if (!string.IsNullOrEmpty(password))
+                {
+                    user.Password = password;
+                }
+
+                if (!string.IsNullOrEmpty(currency))
+                {
+                    user.Currency = currency;
+                }
+
+                if (hourlyRate.HasValue)
+                {
+                    user.HourlyRate = hourlyRate.Value;
+                }
+
+                user.Modified = DateTime.UtcNow;
+                await _dbContext.SaveChangesAsync();
+            }
+
+            return user;
+        }
+
+        public async Task<User> GetUserByIdAsync(int id)
+        {
+            return await _dbContext.Users.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
+        }
+
         #region Private methods
 
         private byte[] GenerateSalt()
@@ -135,7 +189,7 @@ namespace Keeper.Data.Managers
         private string HashPassword(string password, byte[] salt)
         {
             return Convert.ToBase64String(
-                KeyDerivation.Pbkdf2(password, salt, KeyDerivationPrf.HMACSHA1, 10000, 256/8));
+                KeyDerivation.Pbkdf2(password, salt, KeyDerivationPrf.HMACSHA1, 10000, 256 / 8));
         }
 
         #endregion
