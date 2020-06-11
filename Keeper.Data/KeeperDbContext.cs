@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Keeper.Data
 {
-    public class KeeperContext: DbContext
+    public class KeeperDbContext: DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Client> Clients { get; set; }
@@ -11,12 +11,14 @@ namespace Keeper.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<Task> Tasks { get; set; }
 
-        public KeeperContext(DbContextOptions<KeeperContext> options): base(options)
+        public KeeperDbContext(DbContextOptions<KeeperDbContext> options): base(options)
         {            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             // User
             modelBuilder.Entity<User>()
                 .HasKey(x => x.Id);
