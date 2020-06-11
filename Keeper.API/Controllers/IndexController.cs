@@ -35,6 +35,11 @@ namespace Keeper.API.Controllers
             return Ok("Keeper API is running!");
         }
 
+        /// <summary>
+        /// Log in using email and password. 
+        /// </summary>
+        /// <param name="input">Email and password in a JSON object</param>
+        /// <returns>JWT</returns>
         [HttpPost("api/login")]
         public async Task<ActionResult> LoginAsync([FromBody] LoginInputModel input)
         {
@@ -51,6 +56,11 @@ namespace Keeper.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Register for a User account
+        /// </summary>
+        /// <param name="input">FirstName, LastName, Email, Password in a JSON object</param>
+        /// <returns>Activation token</returns>
         [HttpPost("api/register")]
         public async Task<ActionResult> RegisterAsync([FromBody] RegisterInputModel input)
         {
@@ -66,6 +76,11 @@ namespace Keeper.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Activate a User account using token from Register endpoint
+        /// </summary>
+        /// <param name="token">Token from Register endpoint</param>
+        /// <returns>JWT</returns>
         [HttpPost("api/activate/{token}")]
         public async Task<ActionResult> ActivateAsync(string token)
         {
@@ -81,6 +96,11 @@ namespace Keeper.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Reset the password of a User account
+        /// </summary>
+        /// <param name="input">Email of account to reset</param>
+        /// <returns>Update Password Token</returns>
         [HttpPost("api/reset-password")]
         public async Task<ActionResult> ResetPasswordAsync([FromBody] LoginInputModel input)
         {
@@ -96,6 +116,12 @@ namespace Keeper.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Update the password of a User account
+        /// </summary>
+        /// <param name="input">New password in a JSON object</param>
+        /// <param name="token">Token from Reset Password endpoint</param>
+        /// <returns>Text response</returns>
         [HttpPost("api/update-password/{token}")]
         public async Task<ActionResult> ResetPasswordAsync([FromBody] LoginInputModel input, string token)
         {
@@ -111,7 +137,13 @@ namespace Keeper.API.Controllers
             }
         }
 
-        public string GenerateJWT(int id, string email)
+        /// <summary>
+        /// Generate JWT using id and email
+        /// </summary>
+        /// <param name="id">User ID</param>
+        /// <param name="email">User Email</param>
+        /// <returns>Serialized JWT</returns>
+        private string GenerateJWT(int id, string email)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["TokenSecret"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

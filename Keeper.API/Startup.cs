@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace Keeper.API
 {
@@ -28,6 +29,12 @@ namespace Keeper.API
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
+
+            services.AddSwaggerGen(swagger =>
+            {
+                swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "Keeper API" });
+            });
+            services.AddSwaggerGenNewtonsoftSupport();
 
             // middleware
             services.AddSingleton<ExceptionMiddleware>();
@@ -51,8 +58,13 @@ namespace Keeper.API
 
             app.UseRouting();
 
-            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Keeper API");
+            });
 
             app.UseEndpoints(endpoints =>
             {

@@ -18,7 +18,7 @@ namespace Keeper.Data.Managers
 
         public async Task<User> ActivateUserAsync(string token)
         {
-            var user = await _dbContext.Users.FirstAsync(x => x.Token == token);
+            var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Token == token);
             if (user != null)
             {
                 user.Active = true;
@@ -35,8 +35,8 @@ namespace Keeper.Data.Managers
 
         public async Task<User> CreateUserAsync(string firstName, string lastName, string email, string password)
         {
-            var user = await _dbContext.Users.FirstAsync(x => x.Email == email);
-            if (user != null)
+            var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Email == email);
+            if (user == null)
             {
                 var salt = GenerateSalt();
                 var newUser = new User()
@@ -63,7 +63,7 @@ namespace Keeper.Data.Managers
 
         public async Task<User> GetUserByLoginAsync(string email, string password)
         {
-            var user = await _dbContext.Users.AsNoTracking().FirstAsync(x => x.Email == email);
+            var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Email == email);
             
             // check if salt + password combination matches with
             // what's stored in db
@@ -82,7 +82,7 @@ namespace Keeper.Data.Managers
 
         public async Task<string> ResetPasswordAsync(string email)
         {
-            var user = await _dbContext.Users.FirstAsync(x => x.Email == email);
+            var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Email == email);
             if (user != null)
             {
                 var token = Guid.NewGuid().ToString();
@@ -102,7 +102,7 @@ namespace Keeper.Data.Managers
 
         public async Task<bool> UpdatePasswordAsync(string password, string token)
         {
-            var user = await _dbContext.Users.FirstAsync(x => x.Token == token);
+            var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Token == token);
             if (user != null)
             {
                 var salt = GenerateSalt();
