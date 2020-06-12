@@ -10,15 +10,17 @@ namespace Keeper.Data.Managers
         /// Get Contact by Id
         /// </summary>
         /// <param name="id">contact id</param>
+        /// <param name="userId">user id</param>
         /// <returns>Contact</returns>
-        public Task<Contact> GetByIdAsync(int id);
+        public Task<Contact> GetByIdAsync(int id, int userId);
 
         /// <summary>
         /// Get Contacts by Client Id
         /// </summary>
         /// <param name="clientId">client id</param>
+        /// <param name="userId">user id</param>
         /// <returns>List of Contacts</returns>
-        public Task<IEnumerable<Contact>> GetByClientIdAsync(int clientId);
+        public Task<IEnumerable<Contact>> GetByClientIdAsync(int clientId, int userId);
 
         /// <summary>
         /// Create a Contact
@@ -28,8 +30,9 @@ namespace Keeper.Data.Managers
         /// <param name="lastName">last name</param>
         /// <param name="email">email address</param>
         /// <param name="phone">phone number</param>
+        /// <param name="userId">user id</param>
         /// <returns>Newly created Contact</returns>
-        public Task<Contact> CreateAsync(int clientId, string firstName, string lastName, string email, string phone);
+        public Task<Contact> CreateAsync(int clientId, string firstName, string lastName, string email, string phone, int userId);
 
         /// <summary>
         /// Update a Contact
@@ -39,7 +42,16 @@ namespace Keeper.Data.Managers
         /// <param name="lastName">new last name</param>
         /// <param name="email">new email address</param>
         /// <param name="phone">new phone number</param>
+        /// <param name="userId">user id</param>
         /// <returns>Updated Contact</returns>
-        public Task<Contact> UpdateAsync(int id, string firstName, string lastName, string email, string phone);
+        public Task<Contact> UpdateAsync(int id, string firstName, string lastName, string email, string phone, int userId);
+
+        /// <summary>
+        /// Delete a Contact
+        /// </summary>
+        /// <param name="id">contact id</param>
+        /// <param name="userId">user id</param>
+        /// <returns>true or false depending on success</returns>
+        public Task<bool> DeleteAsync(int id, int userId);
     }
 }

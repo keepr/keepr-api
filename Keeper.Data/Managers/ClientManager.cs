@@ -34,11 +34,14 @@ namespace Keeper.Data.Managers
 
         public async Task<bool> DeleteAsync(int id, int userId)
         {
-            var client = await _dbContext.Clients.SingleOrDefaultAsync(x => x.Id == id && x.UserId == userId);
+            var client = await _dbContext.Clients
+                .SingleOrDefaultAsync(x => x.Id == id && x.UserId == userId);
+
             if (client != null)
             {
                 _dbContext.Clients.Remove(client);
                 await _dbContext.SaveChangesAsync();
+
                 return true;
             }
 
@@ -47,12 +50,17 @@ namespace Keeper.Data.Managers
 
         public async Task<Client> GetByIdAsync(int id, int userId)
         {
-            return await _dbContext.Clients.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id && x.UserId == userId);
+            return await _dbContext.Clients
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.Id == id && x.UserId == userId);
         }
 
         public async Task<IEnumerable<Client>> GetByUserIdAsync(int userId)
         {
-            return await _dbContext.Clients.AsNoTracking().Where(x => x.UserId == userId).ToListAsync();
+            return await _dbContext.Clients
+                .AsNoTracking()
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
         }
 
         public async Task<Client> UpdateAsync(int id, string name, string address, int userId)
@@ -70,6 +78,7 @@ namespace Keeper.Data.Managers
                 {
                     client.Address = address;
                 }
+
                 client.Modified = DateTime.UtcNow;
                 await _dbContext.SaveChangesAsync();
             }

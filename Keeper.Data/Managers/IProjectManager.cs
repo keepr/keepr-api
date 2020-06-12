@@ -10,15 +10,17 @@ namespace Keeper.Data.Managers
         /// Get Project by Id
         /// </summary>
         /// <param name="id">id</param>
+        /// <param name="userId">user id</param>
         /// <returns>Project</returns>
-        public Task<Project> GetByIdAsync(int id);
+        public Task<Project> GetByIdAsync(int id, int userId);
 
         /// <summary>
         /// Get Projects by Client Id
         /// </summary>
         /// <param name="clientId">client id</param>
+        /// <param name="userId">user id</param>
         /// <returns>List of Projects</returns>
-        public Task<IEnumerable<Project>> GetByClientIdAsync(int clientId);
+        public Task<IEnumerable<Project>> GetByClientIdAsync(int clientId, int userId);
 
         /// <summary>
         /// Get Projects by User Id
@@ -35,8 +37,9 @@ namespace Keeper.Data.Managers
         /// <param name="currency">currency</param>
         /// <param name="hourlyRate">hourly rate</param>
         /// <param name="clientId">client id</param>
+        /// <param name="userId">user id</param>
         /// <returns>Newly created Project</returns>
-        public Task<Project> CreateAsync(string name, double budget, string currency, double hourlyRate, int clientId);
+        public Task<Project> CreateAsync(string name, double? budget, string currency, double hourlyRate, int clientId, int userId);
 
         /// <summary>
         /// Update a Project
@@ -46,21 +49,24 @@ namespace Keeper.Data.Managers
         /// <param name="budget">new budget</param>
         /// <param name="currency">new currency</param>
         /// <param name="hourlyRate">new hourly rate</param>
+        /// <param name="userId">user id</param>
         /// <returns>Updated Project</returns>
-        public Task<Project> UpdateAsync(int id, string name, double budget, string currency, double hourlyRate);
+        public Task<Project> UpdateAsync(int id, string name, double? budget, string currency, double? hourlyRate, int userId);
 
         /// <summary>
         /// Archive a Project
         /// </summary>
         /// <param name="id">id</param>
+        /// <param name="userId">user id</param>
         /// <returns>true or false depending on success</returns>
-        public Task<bool> ArchiveAsync(int id);
+        public Task<bool> ArchiveAsync(int id, int userId);
 
         /// <summary>
         /// Delete a Project
         /// </summary>
         /// <param name="id">id</param>
+        /// <param name="userId">user id</param>
         /// <returns>true or false depending on success</returns>
-        public Task<bool> DeleteAsync(int id);
+        public Task<bool> DeleteAsync(int id, int userId);
     }
 }
