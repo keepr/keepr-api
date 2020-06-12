@@ -18,12 +18,10 @@ namespace Keeper.API.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class UserController: BaseController
     {
-        private IConfiguration _config;
         private IUserManager _userManager;
 
-        public UserController(IConfiguration config, IUserManager userManager)
+        public UserController(IUserManager userManager)
         {
-            _config = config;
             _userManager = userManager;
         }
 

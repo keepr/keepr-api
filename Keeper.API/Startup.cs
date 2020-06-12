@@ -1,4 +1,4 @@
-using Keeper.API.Middleware;
+﻿using Keeper.API.Middleware;
 using Keeper.Data;
 using Keeper.Data.Managers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -63,6 +63,10 @@ namespace Keeper.API
 
             // managers
             services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<IClientManager, ClientManager>();
+            services.AddScoped<IContactManager, ContactManager>();
+            services.AddScoped<IProjectManager, ProjectManager>();
+            services.AddScoped<IProjectTaskManager, ProjectTaskManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
