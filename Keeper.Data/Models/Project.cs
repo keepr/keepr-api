@@ -10,7 +10,8 @@ namespace Keeper.Data.Models
         public double Budget { get; set; }
         public string Currency { get; set; }
         public double HourlyRate { get; set; }
-        public IEnumerable<Task> Tasks {get;set;}
+        public bool Archive { get; set; }
+        public IEnumerable<ProjectTask> Tasks {get;set;}
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
 

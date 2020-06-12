@@ -9,7 +9,7 @@ namespace Keeper.Data
         public DbSet<Client> Clients { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Project> Projects { get; set; }
-        public DbSet<Task> Tasks { get; set; }
+        public DbSet<ProjectTask> ProjectTasks { get; set; }
 
         public KeeperDbContext(DbContextOptions<KeeperDbContext> options): base(options)
         {            
@@ -48,9 +48,9 @@ namespace Keeper.Data
                 .HasForeignKey(x => x.ClientId);
 
             // Task
-            modelBuilder.Entity<Task>()
+            modelBuilder.Entity<ProjectTask>()
                 .HasKey(x => x.Id);
-            modelBuilder.Entity<Task>()
+            modelBuilder.Entity<ProjectTask>()
                 .HasOne(x => x.Project)
                 .WithMany(x => x.Tasks)
                 .HasForeignKey(x => x.ProjectId);

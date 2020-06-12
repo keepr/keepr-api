@@ -34,7 +34,7 @@ namespace Keeper.API.Controllers
         [HttpGet("me")]
         public async Task<ActionResult> MeAsync()
         {
-            var user = await _userManager.GetUserByIdAsync(CurrentUser.Id);
+            var user = await _userManager.GetByIdAsync(CurrentUser.Id);
             if (user != null)
             {
                 return Ok(new ResponseModel(new UserModel(user)));
@@ -53,7 +53,7 @@ namespace Keeper.API.Controllers
         [HttpPost("me/update")]
         public async Task<ActionResult> UpdateAsync([FromBody] UserUpdateInputModel input)
         {
-            var user = await _userManager.UpdateUserAsync(
+            var user = await _userManager.UpdateAsync(
                 CurrentUser.Id,
                 input.FirstName,
                 input.LastName,

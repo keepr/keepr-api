@@ -2,7 +2,7 @@
 
 namespace Keeper.Data.Models
 {
-    public class Task
+    public class ProjectTask
     {
         public int Id { get; set; }
         public string Name { get; set; }

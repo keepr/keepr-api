@@ -5,14 +5,66 @@ namespace Keeper.Data.Managers
 {
     public interface IUserManager
     {
-        public Task<User> GetUserByLoginAsync(string email, string password);
-        public Task<User> CreateUserAsync(string firstName, string lastName, string email, string password);
-        public Task<User> ActivateUserAsync(string token);
+        /// <summary>
+        /// Get User account by email and password
+        /// </summary>
+        /// <param name="email">email address</param>
+        /// <param name="password">password</param>
+        /// <returns>User</returns>
+        public Task<User> GetByLoginAsync(string email, string password);
+
+        /// <summary>
+        /// Create a User account
+        /// </summary>
+        /// <param name="firstName">first name</param>
+        /// <param name="lastName">last name</param>
+        /// <param name="email">email address</param>
+        /// <param name="password">password</param>
+        /// <returns>Newly created User</returns>
+        public Task<User> CreateAsync(string firstName, string lastName, string email, string password);
+
+        /// <summary>
+        /// Activate a User account
+        /// </summary>
+        /// <param name="token">activation token</param>
+        /// <returns>Updated User</returns>
+        public Task<User> ActivateAsync(string token);
+
+        /// <summary>
+        /// Reset the password of a User account
+        /// </summary>
+        /// <param name="email">email address</param>
+        /// <returns>Password Reset token</returns>
         public Task<string> ResetPasswordAsync(string email);
+
+        /// <summary>
+        /// Set / Update password
+        /// </summary>
+        /// <param name="password">new password</param>
+        /// <param name="token">Password reset token from ResetPasswordAsync</param>
+        /// <returns>true or false depending on success</returns>
         public Task<bool> UpdatePasswordAsync(string password, string token);
-        public Task<User> UpdateUserAsync(int id, string firstName, string lastName, string email, string address,
+
+        /// <summary>
+        /// Update a User account
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <param name="firstName">new first name</param>
+        /// <param name="lastName">new last name</param>
+        /// <param name="email">new email address</param>
+        /// <param name="address">new address</param>
+        /// <param name="password">new password</param>
+        /// <param name="currency">new currency</param>
+        /// <param name="hourlyRate">new hourly rate</param>
+        /// <returns>Updated User account</returns>
+        public Task<User> UpdateAsync(int id, string firstName, string lastName, string email, string address,
             string password, string currency, double? hourlyRate);
 
-        public Task<User> GetUserByIdAsync(int id);
+        /// <summary>
+        /// Get User account by Id
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>User</returns>
+        public Task<User> GetByIdAsync(int id);
     }
 }

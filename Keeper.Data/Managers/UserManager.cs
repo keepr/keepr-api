@@ -16,7 +16,7 @@ namespace Keeper.Data.Managers
             _dbContext = dbContext;
         }
 
-        public async Task<User> ActivateUserAsync(string token)
+        public async Task<User> ActivateAsync(string token)
         {
             var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Token == token);
             if (user != null)
@@ -33,7 +33,7 @@ namespace Keeper.Data.Managers
             return null;
         }
 
-        public async Task<User> CreateUserAsync(string firstName, string lastName, string email, string password)
+        public async Task<User> CreateAsync(string firstName, string lastName, string email, string password)
         {
             var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Email == email);
             if (user == null)
@@ -61,7 +61,7 @@ namespace Keeper.Data.Managers
             return null;
         }
 
-        public async Task<User> GetUserByLoginAsync(string email, string password)
+        public async Task<User> GetByLoginAsync(string email, string password)
         {
             var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Email == email);
 
@@ -119,7 +119,7 @@ namespace Keeper.Data.Managers
             return false;
         }
 
-        public async Task<User> UpdateUserAsync(int id, string firstName, string lastName, string email, string address,
+        public async Task<User> UpdateAsync(int id, string firstName, string lastName, string email, string address,
             string password, string currency, double? hourlyRate)
         {
             var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == id);
@@ -168,7 +168,7 @@ namespace Keeper.Data.Managers
             return user;
         }
 
-        public async Task<User> GetUserByIdAsync(int id)
+        public async Task<User> GetByIdAsync(int id)
         {
             return await _dbContext.Users.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
         }

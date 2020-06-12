@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Keeper.Data.Managers
@@ -17,7 +16,7 @@ namespace Keeper.Data.Managers
             _dbContext = dbContext;
         }
 
-        public async Task<Client> CreateClientAsync(string name, string address, int userId)
+        public async Task<Client> CreateAsync(string name, string address, int userId)
         {
             var newClient = new Client()
             {
@@ -33,7 +32,7 @@ namespace Keeper.Data.Managers
             return newClient;
         }
 
-        public async Task<bool> DeleteClientAsync(int id, int userId)
+        public async Task<bool> DeleteAsync(int id, int userId)
         {
             var client = await _dbContext.Clients.SingleOrDefaultAsync(x => x.Id == id && x.UserId == userId);
             if (client != null)
@@ -46,17 +45,17 @@ namespace Keeper.Data.Managers
             return false;
         }
 
-        public async Task<Client> GetClientByIdAsync(int id, int userId)
+        public async Task<Client> GetByIdAsync(int id, int userId)
         {
             return await _dbContext.Clients.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id && x.UserId == userId);
         }
 
-        public async Task<IEnumerable<Client>> GetClientsByUserIdAsync(int userId)
+        public async Task<IEnumerable<Client>> GetByUserIdAsync(int userId)
         {
             return await _dbContext.Clients.AsNoTracking().Where(x => x.UserId == userId).ToListAsync();
         }
 
-        public async Task<Client> UpdateClientAsync(int id, string name, string address, int userId)
+        public async Task<Client> UpdateAsync(int id, string name, string address, int userId)
         {
             var client = await _dbContext.Clients.SingleOrDefaultAsync(x => x.Id == id && x.UserId == userId);
 

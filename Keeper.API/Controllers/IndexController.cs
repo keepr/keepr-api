@@ -43,7 +43,7 @@ namespace Keeper.API.Controllers
         [HttpPost("api/login")]
         public async Task<ActionResult> LoginAsync([FromBody] LoginInputModel input)
         {
-            var user = await _userManager.GetUserByLoginAsync(input.Email, input.Password);
+            var user = await _userManager.GetByLoginAsync(input.Email, input.Password);
 
             if (user != null)
             {
@@ -64,7 +64,7 @@ namespace Keeper.API.Controllers
         [HttpPost("api/register")]
         public async Task<ActionResult> RegisterAsync([FromBody] RegisterInputModel input)
         {
-            var user = await _userManager.CreateUserAsync(input.FirstName, input.LastName, input.Email, input.Password);
+            var user = await _userManager.CreateAsync(input.FirstName, input.LastName, input.Email, input.Password);
 
             if (user != null)
             {
@@ -84,7 +84,7 @@ namespace Keeper.API.Controllers
         [HttpPost("api/activate/{token}")]
         public async Task<ActionResult> ActivateAsync(string token)
         {
-            var user = await _userManager.ActivateUserAsync(token);
+            var user = await _userManager.ActivateAsync(token);
 
             if (user != null)
             {
