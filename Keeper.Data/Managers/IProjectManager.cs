@@ -54,12 +54,12 @@ namespace Keeper.Data.Managers
         public Task<Project> UpdateAsync(int id, string name, double? budget, string currency, double? hourlyRate, int userId);
 
         /// <summary>
-        /// Archive a Project
+        /// Toggle Archive state of a Project
         /// </summary>
         /// <param name="id">id</param>
         /// <param name="userId">user id</param>
         /// <returns>true or false depending on success</returns>
-        public Task<bool> ArchiveAsync(int id, int userId);
+        public Task<bool> ToggleArchiveAsync(int id, int userId);
 
         /// <summary>
         /// Delete a Project

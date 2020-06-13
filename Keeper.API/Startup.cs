@@ -4,7 +4,6 @@ using Keeper.Data.Managers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -53,7 +52,6 @@ namespace Keeper.API
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "Keeper API" });
             });
-            services.AddSwaggerGenNewtonsoftSupport();
 
             // middleware
             services.AddSingleton<ExceptionMiddleware>();

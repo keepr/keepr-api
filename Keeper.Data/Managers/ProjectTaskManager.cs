@@ -17,7 +17,7 @@ namespace Keeper.Data.Managers
             _dbContext = dbContext;
         }
 
-        public async Task<ProjectTask> CreateAsync(string name, string description, double hours, DateTime date, int projectId, int userId)
+        public async Task<ProjectTask> CreateAsync(string name, string description, double? hours, DateTime? date, int projectId, int userId)
         {
             var project = await _dbContext.Projects
                 .AsNoTracking()
@@ -29,8 +29,8 @@ namespace Keeper.Data.Managers
                 {
                     Name = name,
                     Description = description,
-                    Hours = hours,
-                    Date = date,
+                    Hours = hours ?? 0,
+                    Date = date ?? DateTime.UtcNow,
                     Created = DateTime.UtcNow,
                     ProjectId = projectId
                 };

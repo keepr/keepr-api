@@ -160,7 +160,7 @@ namespace Keeper.API.Controllers
             }
             else
             {
-                return BadRequest(new ErrorModel("Unable to create a Project for this Client"));
+                return BadRequest(new ErrorModel("Unable to create a Project for this Client."));
             }
         }
     }

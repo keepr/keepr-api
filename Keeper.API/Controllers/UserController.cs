@@ -34,7 +34,7 @@ namespace Keeper.API.Controllers
             }
             else
             {
-                return BadRequest(new ErrorModel("Unable to retrieve current user."));
+                return BadRequest(new ErrorModel("Unable to retrieve current User."));
             }
         }
 
@@ -63,7 +63,7 @@ namespace Keeper.API.Controllers
             }
             else
             {
-                return BadRequest(new ErrorModel("Unable to update user."));
+                return BadRequest(new ErrorModel("Unable to update User."));
             }
         }
     }

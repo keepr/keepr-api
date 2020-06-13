@@ -16,14 +16,14 @@ namespace Keeper.Data.Managers
             _dbContext = dbContext;
         }
 
-        public async Task<bool> ArchiveAsync(int id, int userId)
+        public async Task<bool> ToggleArchiveAsync(int id, int userId)
         {
             var project = await _dbContext.Projects
                 .SingleOrDefaultAsync(x => x.Id == id && x.Client.UserId == userId);
 
             if (project != null)
             {
-                project.Archive = true;
+                project.Archive = !project.Archive;
                 await _dbContext.SaveChangesAsync();
                 return true;
             }

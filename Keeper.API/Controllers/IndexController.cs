@@ -69,7 +69,7 @@ namespace Keeper.API.Controllers
             }
             else
             {
-                return BadRequest(new ErrorModel("User account with email address already exists."));
+                return BadRequest(new ErrorModel("User account with this email address already exists."));
             }
         }
 
@@ -109,7 +109,7 @@ namespace Keeper.API.Controllers
             }
             else
             {
-                return BadRequest(new ErrorModel("No user account with email address."));
+                return BadRequest(new ErrorModel("No User account with this email address."));
             }
         }
 
