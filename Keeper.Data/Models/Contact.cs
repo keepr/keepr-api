@@ -9,8 +9,8 @@ namespace Keeper.Data.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime? Modified { get; set; }
+        public DateTimeOffset Created { get; set; }
+        public DateTimeOffset? Modified { get; set; }
 
         // FK
         public int ClientId { get; set; }

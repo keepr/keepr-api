@@ -25,8 +25,8 @@ namespace Keeper.API.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public double Hours { get; set; }
-        public DateTime Date { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime? Modified { get; set; }
+        public DateTimeOffset Date { get; set; }
+        public DateTimeOffset Created { get; set; }
+        public DateTimeOffset? Modified { get; set; }
     }
 }

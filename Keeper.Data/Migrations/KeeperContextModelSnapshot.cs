@@ -29,11 +29,11 @@ namespace Keeper.Data.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
-                    b.Property<DateTime?>("Modified")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("Modified")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -58,8 +58,8 @@ namespace Keeper.Data.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -70,8 +70,8 @@ namespace Keeper.Data.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Modified")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("Modified")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
@@ -99,8 +99,8 @@ namespace Keeper.Data.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Currency")
                         .HasColumnType("nvarchar(max)");
@@ -108,8 +108,8 @@ namespace Keeper.Data.Migrations
                     b.Property<double>("HourlyRate")
                         .HasColumnType("float");
 
-                    b.Property<DateTime?>("Modified")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("Modified")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -128,11 +128,11 @@ namespace Keeper.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Date")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -140,8 +140,8 @@ namespace Keeper.Data.Migrations
                     b.Property<double>("Hours")
                         .HasColumnType("float");
 
-                    b.Property<DateTime?>("Modified")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("Modified")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -169,8 +169,8 @@ namespace Keeper.Data.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Currency")
                         .HasColumnType("nvarchar(max)");
@@ -187,8 +187,8 @@ namespace Keeper.Data.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Modified")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("Modified")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");

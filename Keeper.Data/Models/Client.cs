@@ -10,8 +10,8 @@ namespace Keeper.Data.Models
         public string Address { get; set; }
         public IEnumerable<Contact> Contacts { get; set; }
         public IEnumerable<Project> Projects { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime? Modified { get; set; }
+        public DateTimeOffset Created { get; set; }
+        public DateTimeOffset? Modified { get; set; }
 
         // FK
         public int UserId { get; set; }
