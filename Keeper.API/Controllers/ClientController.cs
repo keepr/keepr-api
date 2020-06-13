@@ -89,6 +89,21 @@ namespace Keeper.API.Controllers
             }
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteAsync(int id)
+        {
+            var result = await _clientManager.DeleteAsync(id, CurrentUser.Id);
+
+            if (result)
+            {
+                return Ok(new ResponseModel("Client deleted."));
+            }
+            else
+            {
+                return BadRequest(new ErrorModel("Unable to delete Client."));
+            }
+        }
+
         [HttpGet("{id}/contacts")]
         public async Task<ActionResult> GetContactsByClientIdAsync(int id)
         {
