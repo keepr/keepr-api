@@ -1,7 +1,6 @@
 ﻿using Keeper.Data.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Keeper.Data.Managers

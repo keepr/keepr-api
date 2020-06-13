@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Keeper.API.InputModels;
 using Keeper.API.Models;
 using Keeper.Data.Managers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
 namespace Keeper.API.Controllers
 {
-    [Route("api/client")]
+    [Route("api/clients")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ClientController : BaseController
@@ -108,6 +104,28 @@ namespace Keeper.API.Controllers
             }
         }
 
+        [HttpPost("{id}/contacts")]
+        public async Task<ActionResult> CreateClientContactAsync([FromBody] ContactInputModel inputModel, int id)
+        {
+            var contact = await _contactManager.CreateAsync(
+                inputModel.FirstName, 
+                inputModel.LastName,
+                inputModel.Email,
+                inputModel.Phone,
+                id,
+                CurrentUser.Id
+            );
+
+            if (contact != null)
+            {
+                return Ok(new ResponseModel(new ContactModel(contact)));
+            }
+            else
+            {
+                return BadRequest(new ErrorModel("Unable to create a Contact for this Client."));
+            }
+        }
+
         [HttpGet("{id}/projects")]
         public async Task<ActionResult> GetProjectsByClientIdAsync(int id)
         {
@@ -120,6 +138,29 @@ namespace Keeper.API.Controllers
             else
             {
                 return BadRequest(new ErrorModel("Unable to retrieve Projects for Client."));
+            }
+        }
+
+        
+        [HttpPost("{id}/projects")]
+        public async Task<ActionResult> CreateClientProjectAsync([FromBody] ProjectInputModel inputModel, int id)
+        {
+            var project = await _projectManager.CreateAsync(
+                inputModel.Name,
+                inputModel.Budget,
+                inputModel.Currency,
+                inputModel.HourlyRate,
+                id,
+                CurrentUser.Id
+            );
+
+            if (project != null)
+            {
+                return Ok(new ResponseModel(new ProjectModel(project)));
+            }
+            else
+            {
+                return BadRequest(new ErrorModel("Unable to create a Project for this Client"));
             }
         }
     }

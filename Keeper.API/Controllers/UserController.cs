@@ -1,19 +1,14 @@
 ﻿using Keeper.API.InputModels;
 using Keeper.API.Models;
 using Keeper.Data.Managers;
-using Keeper.Data.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Keeper.API.Controllers
 {
-    [Route("api/user")]
+    [Route("api/users")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class UserController: BaseController
@@ -48,7 +43,7 @@ namespace Keeper.API.Controllers
         /// </summary>
         /// <param name="input">UserUpdateInputModel</param>
         /// <returns>User</returns>]
-        [HttpPost("me/update")]
+        [HttpPut("me")]
         public async Task<ActionResult> UpdateAsync([FromBody] UserUpdateInputModel input)
         {
             var user = await _userManager.UpdateAsync(

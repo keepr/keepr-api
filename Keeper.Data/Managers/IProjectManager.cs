@@ -39,7 +39,7 @@ namespace Keeper.Data.Managers
         /// <param name="clientId">client id</param>
         /// <param name="userId">user id</param>
         /// <returns>Newly created Project</returns>
-        public Task<Project> CreateAsync(string name, double? budget, string currency, double hourlyRate, int clientId, int userId);
+        public Task<Project> CreateAsync(string name, double? budget, string currency, double? hourlyRate, int clientId, int userId);
 
         /// <summary>
         /// Update a Project

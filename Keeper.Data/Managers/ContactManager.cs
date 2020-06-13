@@ -31,7 +31,7 @@ namespace Keeper.Data.Managers
                 .ToListAsync();
         }
 
-        public async Task<Contact> CreateAsync(int clientId, string firstName, string lastName, string email, string phone, int userId)
+        public async Task<Contact> CreateAsync(string firstName, string lastName, string email, string phone, int clientId, int userId)
         {
             var client = await _dbContext.Clients
                 .AsNoTracking()

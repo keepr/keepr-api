@@ -31,7 +31,7 @@ namespace Keeper.Data.Managers
             return false;
         }
 
-        public async Task<Project> CreateAsync(string name, double? budget, string currency, double hourlyRate, int clientId, int userId)
+        public async Task<Project> CreateAsync(string name, double? budget, string currency, double? hourlyRate, int clientId, int userId)
         {
             var client = await _dbContext.Clients
                 .AsNoTracking()
@@ -44,10 +44,15 @@ namespace Keeper.Data.Managers
                     Name = name,
                     Budget = budget ?? 0,
                     Currency = currency,
-                    HourlyRate = hourlyRate,
+                    HourlyRate = hourlyRate ?? 0,
                     ClientId = clientId,
                     Created = DateTime.UtcNow
                 };
+
+                _dbContext.Projects.Add(project);
+                await _dbContext.SaveChangesAsync();
+
+                return project;
             }
 
             return null;

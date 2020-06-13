@@ -25,14 +25,14 @@ namespace Keeper.Data.Managers
         /// <summary>
         /// Create a Contact
         /// </summary>
-        /// <param name="clientId">client id</param>
         /// <param name="firstName">first name</param>
         /// <param name="lastName">last name</param>
         /// <param name="email">email address</param>
         /// <param name="phone">phone number</param>
+        /// <param name="clientId">client id</param>
         /// <param name="userId">user id</param>
         /// <returns>Newly created Contact</returns>
-        public Task<Contact> CreateAsync(int clientId, string firstName, string lastName, string email, string phone, int userId);
+        public Task<Contact> CreateAsync(string firstName, string lastName, string email, string phone, int clientId, int userId);
 
         /// <summary>
         /// Update a Contact
