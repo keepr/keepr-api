@@ -10,15 +10,17 @@ namespace Keeper.API.Models
     {
         public UserModel() {}
 
-        public UserModel(User model)
+        public UserModel(User user)
         {
-            this.Id = model.Id;
-            this.FirstName = model.FirstName;
-            this.LastName = model.LastName;
-            this.Email = model.Email;
-            this.Address = model.Address;
-            this.Currency = model.Currency;
-            this.HourlyRate = model.HourlyRate;
+            this.Id = user.Id;
+            this.FirstName = user.FirstName;
+            this.LastName = user.LastName;
+            this.Email = user.Email;
+            this.Address = user.Address;
+            this.Currency = user.Currency;
+            this.HourlyRate = user.HourlyRate;
+            this.Created = user.Created;
+            this.Modified = user.Modified;
         }
 
         public int Id { get; set; }
@@ -28,5 +30,7 @@ namespace Keeper.API.Models
         public string Address { get; set; }
         public string Currency { get; set; }
         public double HourlyRate { get; set; }
+        public DateTimeOffset Created { get; set; }
+        public DateTimeOffset? Modified { get; set; }
     }
 }

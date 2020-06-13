@@ -12,8 +12,8 @@ namespace Keeper.Data.Models
         public double HourlyRate { get; set; }
         public bool Archive { get; set; }
         public IEnumerable<ProjectTask> Tasks {get;set;}
-        public DateTime Created { get; set; }
-        public DateTime? Modified { get; set; }
+        public DateTimeOffset Created { get; set; }
+        public DateTimeOffset? Modified { get; set; }
 
         // FK
         public int ClientId { get; set; }

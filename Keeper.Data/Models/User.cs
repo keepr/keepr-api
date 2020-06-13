@@ -17,7 +17,7 @@ namespace Keeper.Data.Models
         public string Currency { get; set; }
         public double HourlyRate { get; set; }
         public IEnumerable<Client> Clients { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime? Modified { get; set; }
+        public DateTimeOffset Created { get; set; }
+        public DateTimeOffset? Modified { get; set; }
     }
 }
