@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Keeper.API.Models
+﻿namespace Keeper.API.Models
 {
-	public class ResponseModel
+    public class ResponseModel<T>
 	{
 		public string Status => "Ok";
-		public object Data { get; set; }
+		public T Data { get; set; }
 
-		public ResponseModel(object data)
+		public ResponseModel(T data)
 		{
 			Data = data;
 		}

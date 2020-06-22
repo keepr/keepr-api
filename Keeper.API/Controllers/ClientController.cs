@@ -1,17 +1,14 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Keeper.API.InputModels;
 using Keeper.API.Models;
 using Keeper.Data.Managers;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Keeper.API.Controllers
 {
     [Route("api/clients")]
-    [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ClientController : BaseController
     {
         private IClientManager _clientManager;
@@ -30,13 +27,13 @@ namespace Keeper.API.Controllers
         }
 
         [HttpGet("")]
-        public async Task<ActionResult> GetClientsByUserIdAsync()
+        public async Task<ActionResult<ResponseModel<IEnumerable<ClientModel>>>> GetClientsByUserIdAsync()
         {
             var clients = await _clientManager.GetByUserIdAsync(CurrentUser.Id);
 
             if (clients != null)
             {
-                return Ok(new ResponseModel(clients.Select(x => new ClientModel(x))));
+                return Ok(new ResponseModel<IEnumerable<ClientModel>>(clients.Select(x => new ClientModel(x))));
             }
             else
             {
@@ -45,13 +42,13 @@ namespace Keeper.API.Controllers
         }
 
         [HttpPost("")]
-        public async Task<ActionResult> CreateAsync([FromBody] ClientInputModel input)
+        public async Task<ActionResult<ResponseModel<ClientModel>>> CreateAsync([FromBody] ClientInputModel input)
         {
             var client = await _clientManager.CreateAsync(input.Name, input.Address, CurrentUser.Id);
 
             if (client != null)
             {
-                return Ok(new ResponseModel(new ClientModel(client)));
+                return Ok(new ResponseModel<ClientModel>(new ClientModel(client)));
             }
             else
             {
@@ -60,13 +57,13 @@ namespace Keeper.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetClientByIdAsync(int id)
+        public async Task<ActionResult<ResponseModel<ClientModel>>> GetClientByIdAsync(int id)
         {
             var client = await _clientManager.GetByIdAsync(id, CurrentUser.Id);
 
             if (client != null)
             {
-                return Ok(new ResponseModel(new ClientModel(client)));
+                return Ok(new ResponseModel<ClientModel>(new ClientModel(client)));
             }
             else
             {
@@ -75,13 +72,13 @@ namespace Keeper.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateAsync([FromBody] ClientInputModel input, int id)
+        public async Task<ActionResult<ResponseModel<ClientModel>>> UpdateAsync([FromBody] ClientInputModel input, int id)
         {
             var client = await _clientManager.UpdateAsync(id, input.Name, input.Address, CurrentUser.Id);
 
             if (client != null)
             {
-                return Ok(new ResponseModel(new ClientModel(client)));
+                return Ok(new ResponseModel<ClientModel>(new ClientModel(client)));
             }
             else
             {
@@ -90,13 +87,13 @@ namespace Keeper.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteAsync(int id)
+        public async Task<ActionResult<ResponseModel<string>>> DeleteAsync(int id)
         {
             var result = await _clientManager.DeleteAsync(id, CurrentUser.Id);
 
             if (result)
             {
-                return Ok(new ResponseModel("Client deleted."));
+                return Ok(new ResponseModel<string>("Client deleted."));
             }
             else
             {
@@ -105,13 +102,13 @@ namespace Keeper.API.Controllers
         }
 
         [HttpGet("{id}/contacts")]
-        public async Task<ActionResult> GetContactsByClientIdAsync(int id)
+        public async Task<ActionResult<ResponseModel<IEnumerable<ContactModel>>>> GetContactsByClientIdAsync(int id)
         {
             var contacts = await _contactManager.GetByClientIdAsync(id, CurrentUser.Id);
 
             if (contacts != null)
             {
-                return Ok(new ResponseModel(contacts.Select(x => new ContactModel(x))));
+                return Ok(new ResponseModel<IEnumerable<ContactModel>>(contacts.Select(x => new ContactModel(x))));
             }
             else
             {
@@ -120,7 +117,7 @@ namespace Keeper.API.Controllers
         }
 
         [HttpPost("{id}/contacts")]
-        public async Task<ActionResult> CreateClientContactAsync([FromBody] ContactInputModel inputModel, int id)
+        public async Task<ActionResult<ResponseModel<ContactModel>>> CreateClientContactAsync([FromBody] ContactInputModel inputModel, int id)
         {
             var contact = await _contactManager.CreateAsync(
                 inputModel.FirstName, 
@@ -133,7 +130,7 @@ namespace Keeper.API.Controllers
 
             if (contact != null)
             {
-                return Ok(new ResponseModel(new ContactModel(contact)));
+                return Ok(new ResponseModel<ContactModel>(new ContactModel(contact)));
             }
             else
             {
@@ -142,13 +139,13 @@ namespace Keeper.API.Controllers
         }
 
         [HttpGet("{id}/projects")]
-        public async Task<ActionResult> GetProjectsByClientIdAsync(int id)
+        public async Task<ActionResult<ResponseModel<IEnumerable<ProjectModel>>>> GetProjectsByClientIdAsync(int id)
         {
             var projects = await _projectManager.GetByClientIdAsync(id, CurrentUser.Id);
 
             if (projects != null)
             {
-                return Ok(new ResponseModel(projects.Select(x => new ProjectModel(x))));
+                return Ok(new ResponseModel<IEnumerable<ProjectModel>>(projects.Select(x => new ProjectModel(x))));
             }
             else
             {
@@ -158,7 +155,7 @@ namespace Keeper.API.Controllers
 
         
         [HttpPost("{id}/projects")]
-        public async Task<ActionResult> CreateClientProjectAsync([FromBody] ProjectInputModel inputModel, int id)
+        public async Task<ActionResult<ResponseModel<ProjectModel>>> CreateClientProjectAsync([FromBody] ProjectInputModel inputModel, int id)
         {
             var project = await _projectManager.CreateAsync(
                 inputModel.Name,
@@ -171,7 +168,7 @@ namespace Keeper.API.Controllers
 
             if (project != null)
             {
-                return Ok(new ResponseModel(new ProjectModel(project)));
+                return Ok(new ResponseModel<ProjectModel>(new ProjectModel(project)));
             }
             else
             {

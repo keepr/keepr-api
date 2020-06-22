@@ -38,14 +38,14 @@ namespace Keeper.API.Controllers
         /// <param name="input">Email and password in a JSON object</param>
         /// <returns>JWT</returns>
         [HttpPost("api/login")]
-        public async Task<ActionResult> LoginAsync([FromBody] LoginInputModel input)
+        public async Task<ActionResult<ResponseModel<string>>> LoginAsync([FromBody] LoginInputModel input)
         {
             var user = await _userManager.GetByLoginAsync(input.Email, input.Password);
 
             if (user != null)
             {
                 var jwt = GenerateJWT(user.Id, user.Email);
-                return Ok(new ResponseModel(jwt));
+                return Ok(new ResponseModel<string>(jwt));
             }
             else
             {
@@ -59,13 +59,13 @@ namespace Keeper.API.Controllers
         /// <param name="input">FirstName, LastName, Email, Password in a JSON object</param>
         /// <returns>Activation token</returns>
         [HttpPost("api/register")]
-        public async Task<ActionResult> RegisterAsync([FromBody] RegisterInputModel input)
+        public async Task<ActionResult<ResponseModel<string>>> RegisterAsync([FromBody] RegisterInputModel input)
         {
             var user = await _userManager.CreateAsync(input.FirstName, input.LastName, input.Email, input.Password);
 
             if (user != null)
             {
-                return Ok(new ResponseModel(user.Token));
+                return Ok(new ResponseModel<string>(user.Token));
             }
             else
             {
@@ -79,13 +79,13 @@ namespace Keeper.API.Controllers
         /// <param name="token">Token from Register endpoint</param>
         /// <returns>JWT</returns>
         [HttpPost("api/activate/{token}")]
-        public async Task<ActionResult> ActivateAsync(string token)
+        public async Task<ActionResult<ResponseModel<string>>> ActivateAsync(string token)
         {
             var user = await _userManager.ActivateAsync(token);
 
             if (user != null)
             {
-                return Ok(new ResponseModel(GenerateJWT(user.Id, user.Email)));
+                return Ok(new ResponseModel<string>(GenerateJWT(user.Id, user.Email)));
             }
             else
             {
@@ -99,13 +99,13 @@ namespace Keeper.API.Controllers
         /// <param name="input">Email of account to reset</param>
         /// <returns>Update Password Token</returns>
         [HttpPost("api/reset-password")]
-        public async Task<ActionResult> ResetPasswordAsync([FromBody] LoginInputModel input)
+        public async Task<ActionResult<ResponseModel<string>>> ResetPasswordAsync([FromBody] LoginInputModel input)
         {
             var token = await _userManager.ResetPasswordAsync(input.Email);
 
             if (token != null)
             {
-                return Ok(new ResponseModel(token));
+                return Ok(new ResponseModel<string>(token));
             }
             else
             {
@@ -120,13 +120,13 @@ namespace Keeper.API.Controllers
         /// <param name="token">Token from Reset Password endpoint</param>
         /// <returns>Text response</returns>
         [HttpPost("api/update-password/{token}")]
-        public async Task<ActionResult> ResetPasswordAsync([FromBody] LoginInputModel input, string token)
+        public async Task<ActionResult<ResponseModel<string>>> ResetPasswordAsync([FromBody] LoginInputModel input, string token)
         {
             var result = await _userManager.UpdatePasswordAsync(input.Password, token);
 
             if (result)
             {
-                return Ok(new ResponseModel("Password updated."));
+                return Ok(new ResponseModel<string>("Password updated."));
             }
             else
             {

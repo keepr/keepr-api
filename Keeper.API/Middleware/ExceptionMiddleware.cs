@@ -1,10 +1,8 @@
-﻿using Keeper.API.Models;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
+using Keeper.API.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Keeper.API.Middleware
 {

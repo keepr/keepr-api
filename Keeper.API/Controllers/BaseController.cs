@@ -1,11 +1,15 @@
-﻿using Keeper.API.Models;
+﻿using System;
+using System.Linq;
+using Keeper.API.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.Linq;
 
 namespace Keeper.API.Controllers
 {
+    [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class BaseController: Controller
     {
         public UserModel CurrentUser;

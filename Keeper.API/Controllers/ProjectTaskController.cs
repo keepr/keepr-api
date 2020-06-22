@@ -1,16 +1,12 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Keeper.API.InputModels;
 using Keeper.API.Models;
 using Keeper.Data.Managers;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Keeper.API.Controllers
 {
     [Route("api/tasks")]
-    [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ProjectTaskController : BaseController
     {
         private IProjectTaskManager _projectTaskManager;
@@ -21,13 +17,13 @@ namespace Keeper.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetByIdAsync(int id)
+        public async Task<ActionResult<ResponseModel<ProjectTaskModel>>> GetByIdAsync(int id)
         {
             var task = await _projectTaskManager.GetByIdAsync(id, CurrentUser.Id);
 
             if (task != null)
             {
-                return Ok(new ResponseModel(new ProjectTaskModel(task)));
+                return Ok(new ResponseModel<ProjectTaskModel>(new ProjectTaskModel(task)));
             }
             else
             {
@@ -36,7 +32,7 @@ namespace Keeper.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateAsync([FromBody] ProjectTaskInputModel input, int id)
+        public async Task<ActionResult<ResponseModel<ProjectTaskModel>>> UpdateAsync([FromBody] ProjectTaskInputModel input, int id)
         {
             var task = await _projectTaskManager.UpdateAsync(
                 id,
@@ -49,7 +45,7 @@ namespace Keeper.API.Controllers
 
             if (task != null)
             {
-                return Ok(new ResponseModel(new ProjectTaskModel(task)));
+                return Ok(new ResponseModel<ProjectTaskModel>(new ProjectTaskModel(task)));
             }
             else
             {
@@ -58,13 +54,13 @@ namespace Keeper.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteAsync(int id)
+        public async Task<ActionResult<ResponseModel<string>>> DeleteAsync(int id)
         {
             var result = await _projectTaskManager.DeleteAsync(id, CurrentUser.Id);
 
             if (result)
             {
-                return Ok(new ResponseModel("Task deleted."));
+                return Ok(new ResponseModel<string>("Task deleted."));
             }
             else
             {

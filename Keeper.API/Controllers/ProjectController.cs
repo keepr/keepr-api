@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Keeper.API.InputModels;
 using Keeper.API.Models;
 using Keeper.Data.Managers;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Keeper.API.Controllers
 {
     [Route("api/projects")]
-    [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ProjectController : BaseController
     {
         private IProjectManager _projectManager;
@@ -26,13 +21,13 @@ namespace Keeper.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetByIdAsync(int id)
+        public async Task<ActionResult<ResponseModel<ProjectModel>>> GetByIdAsync(int id)
         {
             var project = await _projectManager.GetByIdAsync(id, CurrentUser.Id);
 
             if (project != null)
             {
-                return Ok(new ResponseModel(new ProjectModel(project)));
+                return Ok(new ResponseModel<ProjectModel>(new ProjectModel(project)));
             }
             else
             {
@@ -41,7 +36,7 @@ namespace Keeper.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateAsync([FromBody] ProjectInputModel input, int id)
+        public async Task<ActionResult<ResponseModel<ProjectModel>>> UpdateAsync([FromBody] ProjectInputModel input, int id)
         {
             var project = await _projectManager.UpdateAsync(
                 id,
@@ -54,7 +49,7 @@ namespace Keeper.API.Controllers
 
             if (project != null)
             {
-                return Ok(new ResponseModel(new ProjectModel(project)));
+                return Ok(new ResponseModel<ProjectModel>(new ProjectModel(project)));
             }
             else
             {
@@ -63,13 +58,13 @@ namespace Keeper.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteAsync(int id)
+        public async Task<ActionResult<ResponseModel<string>>> DeleteAsync(int id)
         {
             var result = await _projectManager.DeleteAsync(id, CurrentUser.Id);
 
             if (result)
             {
-                return Ok(new ResponseModel("Project deleted."));
+                return Ok(new ResponseModel<string>("Project deleted."));
             }
             else
             {
@@ -79,13 +74,13 @@ namespace Keeper.API.Controllers
 
         
         [HttpPost("{id}/archive")]
-        public async Task<ActionResult> ArchiveAsync(int id)
+        public async Task<ActionResult<ResponseModel<string>>> ArchiveAsync(int id)
         {
             var result = await _projectManager.ToggleArchiveAsync(id, CurrentUser.Id);
 
             if (result)
             {
-                return Ok(new ResponseModel("Project archived."));
+                return Ok(new ResponseModel<string>("Project archived."));
             }
             else
             {
@@ -94,13 +89,13 @@ namespace Keeper.API.Controllers
         }
 
         [HttpGet("{id}/tasks")]
-        public async Task<ActionResult> GetProjectTasksAsync(int id)
+        public async Task<ActionResult<ResponseModel<IEnumerable<ProjectTaskModel>>>> GetProjectTasksAsync(int id)
         {
             var tasks = await _projectTaskManager.GetByProjectIdAsync(id, CurrentUser.Id);
 
             if (tasks != null)
             {
-                return Ok(new ResponseModel(tasks.Select(x => new ProjectTaskModel(x))));
+                return Ok(new ResponseModel<IEnumerable<ProjectTaskModel>>(tasks.Select(x => new ProjectTaskModel(x))));
             }
             else 
             {
@@ -109,7 +104,7 @@ namespace Keeper.API.Controllers
         }
 
         [HttpPost("{id}/tasks")]
-        public async Task<ActionResult> CreateProjectTaskAsync([FromBody] ProjectTaskInputModel input, int id)
+        public async Task<ActionResult<ResponseModel<ProjectTaskModel>>> CreateProjectTaskAsync([FromBody] ProjectTaskInputModel input, int id)
         {
             var task = await _projectTaskManager.CreateAsync(
                 input.Name,
@@ -122,7 +117,7 @@ namespace Keeper.API.Controllers
 
             if (task != null)
             {
-                return Ok(new ResponseModel(new ProjectTaskModel(task)));
+                return Ok(new ResponseModel<ProjectTaskModel>(new ProjectTaskModel(task)));
             }
             else
             {
