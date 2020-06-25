@@ -15,14 +15,6 @@ namespace Keeper.Data.Managers
         public Task<Project> GetByIdAsync(int id, int userId);
 
         /// <summary>
-        /// Get Projects by Client Id
-        /// </summary>
-        /// <param name="clientId">client id</param>
-        /// <param name="userId">user id</param>
-        /// <returns>List of Projects</returns>
-        public Task<IEnumerable<Project>> GetByClientIdAsync(int clientId, int userId);
-
-        /// <summary>
         /// Get Projects by User Id
         /// </summary>
         /// <param name="userId">user id</param>

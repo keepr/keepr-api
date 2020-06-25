@@ -15,14 +15,6 @@ namespace Keeper.Data.Managers
         public Task<Contact> GetByIdAsync(int id, int userId);
 
         /// <summary>
-        /// Get Contacts by Client Id
-        /// </summary>
-        /// <param name="clientId">client id</param>
-        /// <param name="userId">user id</param>
-        /// <returns>List of Contacts</returns>
-        public Task<IEnumerable<Contact>> GetByClientIdAsync(int clientId, int userId);
-
-        /// <summary>
         /// Create a Contact
         /// </summary>
         /// <param name="firstName">first name</param>
@@ -44,7 +36,7 @@ namespace Keeper.Data.Managers
         /// <param name="phone">new phone number</param>
         /// <param name="userId">user id</param>
         /// <returns>Updated Contact</returns>
-        public Task<Contact> UpdateAsync(int id, string firstName, string lastName, string email, string phone, int userId);
+        public Task<Contact> UpdateAsync(int id, string firstName, string lastName, string email, string phone, bool primary, int userId);
 
         /// <summary>
         /// Delete a Contact

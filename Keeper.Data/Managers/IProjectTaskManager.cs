@@ -16,14 +16,6 @@ namespace Keeper.Data.Managers
         public Task<ProjectTask> GetByIdAsync(int id, int userId);
 
         /// <summary>
-        /// Get Project Tasks by Project id
-        /// </summary>
-        /// <param name="projectId">project id</param>
-        /// <param name="userId">user id</param>
-        /// <returns>List of ProjectTasks</returns>
-        public Task<IEnumerable<ProjectTask>> GetByProjectIdAsync(int projectId, int userId);
-
-        /// <summary>
         /// Create Project Task
         /// </summary>
         /// <param name="name">name</param>

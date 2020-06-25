@@ -111,22 +111,19 @@ namespace Keeper.Data.Managers
             return false;
         }
 
-        public async Task<IEnumerable<Project>> GetByClientIdAsync(int clientId, int userId)
-        {
-            return await _dbContext.Projects
-                .Where(x => x.ClientId == clientId && x.Client.UserId == userId)
-                .ToListAsync();
-        }
-
         public async Task<Project> GetByIdAsync(int id, int userId)
         {
             return await _dbContext.Projects
+                .AsNoTracking()
+                .Include(x => x.Tasks)
                 .SingleOrDefaultAsync(x => x.ClientId == id && x.Client.UserId == userId);
         }
 
         public async Task<IEnumerable<Project>> GetByUserIdAsync(int userId)
         {
             return await _dbContext.Projects
+                .AsNoTracking()
+                .Include(x => x.Tasks)
                 .Where(x => x.Client.UserId == userId)
                 .ToListAsync();
         }

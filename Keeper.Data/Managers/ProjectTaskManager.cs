@@ -1,8 +1,6 @@
 ﻿using Keeper.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Keeper.Data.Managers
@@ -103,14 +101,6 @@ namespace Keeper.Data.Managers
             return await _dbContext.ProjectTasks
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id && x.Project.Client.UserId == userId);
-        }
-
-        public async Task<IEnumerable<ProjectTask>> GetByProjectIdAsync(int projectId, int userId)
-        {
-            return await _dbContext.ProjectTasks
-                .AsNoTracking()
-                .Where(x => x.ProjectId == projectId && x.Project.Client.UserId == userId)
-                .ToListAsync();
         }
     }
 }

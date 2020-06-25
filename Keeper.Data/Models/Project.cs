@@ -11,7 +11,7 @@ namespace Keeper.Data.Models
         public string Currency { get; set; }
         public double HourlyRate { get; set; }
         public bool Archive { get; set; }
-        public IEnumerable<ProjectTask> Tasks {get;set;}
+        public IEnumerable<ProjectTask> Tasks { get; set; }
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset? Modified { get; set; }
 

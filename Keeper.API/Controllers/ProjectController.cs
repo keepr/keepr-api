@@ -20,6 +20,21 @@ namespace Keeper.API.Controllers
             _projectTaskManager = projectTaskManager;
         }
 
+        [HttpGet("")]
+        public async Task<ActionResult<ResponseModel<IEnumerable<ProjectModel>>>> GetByUserIdAsync(int id)
+        {
+            var projects = await _projectManager.GetByUserIdAsync(CurrentUser.Id);
+
+            if (projects != null)
+            {
+                return Ok(new ResponseModel<IEnumerable<ProjectModel>>(projects.Select(x => new ProjectModel(x))));
+            }
+            else
+            {
+                return BadRequest(new ErrorModel("Unable to retrieve Project."));
+            }
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<ResponseModel<ProjectModel>>> GetByIdAsync(int id)
         {
@@ -85,21 +100,6 @@ namespace Keeper.API.Controllers
             else
             {
                 return BadRequest(new ErrorModel("Unable to archive Project."));
-            }
-        }
-
-        [HttpGet("{id}/tasks")]
-        public async Task<ActionResult<ResponseModel<IEnumerable<ProjectTaskModel>>>> GetProjectTasksAsync(int id)
-        {
-            var tasks = await _projectTaskManager.GetByProjectIdAsync(id, CurrentUser.Id);
-
-            if (tasks != null)
-            {
-                return Ok(new ResponseModel<IEnumerable<ProjectTaskModel>>(tasks.Select(x => new ProjectTaskModel(x))));
-            }
-            else 
-            {
-                return BadRequest(new ErrorModel("Unable to retrieve Project Tasks."));
             }
         }
 

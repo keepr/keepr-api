@@ -1,8 +1,11 @@
 ﻿using Keeper.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Keeper.Data.Managers
@@ -52,6 +55,8 @@ namespace Keeper.Data.Managers
         {
             return await _dbContext.Clients
                 .AsNoTracking()
+                .Include(x => x.Contacts)
+                .Include(x => x.Projects)
                 .SingleOrDefaultAsync(x => x.Id == id && x.UserId == userId);
         }
 
@@ -59,6 +64,8 @@ namespace Keeper.Data.Managers
         {
             return await _dbContext.Clients
                 .AsNoTracking()
+                .Include(x => x.Contacts)
+                .Include(x => x.Projects)
                 .Where(x => x.UserId == userId)
                 .ToListAsync();
         }

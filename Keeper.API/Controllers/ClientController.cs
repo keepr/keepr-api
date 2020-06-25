@@ -101,21 +101,6 @@ namespace Keeper.API.Controllers
             }
         }
 
-        [HttpGet("{id}/contacts")]
-        public async Task<ActionResult<ResponseModel<IEnumerable<ContactModel>>>> GetContactsByClientIdAsync(int id)
-        {
-            var contacts = await _contactManager.GetByClientIdAsync(id, CurrentUser.Id);
-
-            if (contacts != null)
-            {
-                return Ok(new ResponseModel<IEnumerable<ContactModel>>(contacts.Select(x => new ContactModel(x))));
-            }
-            else
-            {
-                return BadRequest(new ErrorModel("Unable to retrieve Contacts for Client."));
-            }
-        }
-
         [HttpPost("{id}/contacts")]
         public async Task<ActionResult<ResponseModel<ContactModel>>> CreateClientContactAsync([FromBody] ContactInputModel inputModel, int id)
         {
@@ -137,23 +122,7 @@ namespace Keeper.API.Controllers
                 return BadRequest(new ErrorModel("Unable to create a Contact for this Client."));
             }
         }
-
-        [HttpGet("{id}/projects")]
-        public async Task<ActionResult<ResponseModel<IEnumerable<ProjectModel>>>> GetProjectsByClientIdAsync(int id)
-        {
-            var projects = await _projectManager.GetByClientIdAsync(id, CurrentUser.Id);
-
-            if (projects != null)
-            {
-                return Ok(new ResponseModel<IEnumerable<ProjectModel>>(projects.Select(x => new ProjectModel(x))));
-            }
-            else
-            {
-                return BadRequest(new ErrorModel("Unable to retrieve Projects for Client."));
-            }
-        }
-
-        
+       
         [HttpPost("{id}/projects")]
         public async Task<ActionResult<ResponseModel<ProjectModel>>> CreateClientProjectAsync([FromBody] ProjectInputModel inputModel, int id)
         {

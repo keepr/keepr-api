@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Keeper.Data.Models;
 
 namespace Keeper.API.Models
@@ -17,6 +20,11 @@ namespace Keeper.API.Models
             this.Archive = project.Archive;
             this.Created = project.Created;
             this.Modified = project.Modified;
+
+            if (project.Tasks != null)
+            {
+                this.Tasks = project.Tasks.Select(x => new ProjectTaskModel(x));
+            }
         }
 
         public int Id { get; set; }
@@ -25,6 +33,7 @@ namespace Keeper.API.Models
         public string Currency { get; set; }
         public double HourlyRate { get; set; }
         public bool Archive { get; set; }
+        public IEnumerable<ProjectTaskModel> Tasks { get; set; }
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset? Modified { get; set; }
     }

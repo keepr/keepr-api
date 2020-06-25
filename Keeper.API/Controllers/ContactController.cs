@@ -40,6 +40,7 @@ namespace Keeper.API.Controllers
                 input.LastName,
                 input.Email,
                 input.Phone,
+                input.Primary,
                 CurrentUser.Id
             );
 

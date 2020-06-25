@@ -11,6 +11,7 @@ namespace Keeper.Data.Models
         public string Phone { get; set; }
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset? Modified { get; set; }
+        public bool Primary { get; set; }
 
         // FK
         public int ClientId { get; set; }
