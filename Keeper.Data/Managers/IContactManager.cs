@@ -44,7 +44,7 @@ namespace Keeper.Data.Managers
         /// <param name="phone">new phone number</param>
         /// <param name="userId">user id</param>
         /// <returns>Updated Contact</returns>
-        public Task<Contact> UpdateAsync(int id, string firstName, string lastName, string email, string phone, int userId);
+        public Task<Contact> UpdateAsync(int id, string firstName, string lastName, string email, string phone, bool? primary, int userId);
 
         /// <summary>
         /// Delete a Contact

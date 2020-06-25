@@ -4,14 +4,16 @@ using Keeper.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Keeper.Data.Migrations
 {
     [DbContext(typeof(KeeperDbContext))]
-    partial class KeeperContextModelSnapshot : ModelSnapshot
+    [Migration("20200625123928_PrimaryContact")]
+    partial class PrimaryContact
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

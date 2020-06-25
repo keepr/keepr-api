@@ -67,6 +67,5 @@ namespace Keeper.API.Controllers
                 return BadRequest(new ErrorModel("Unable to delete Task."));
             }
         }
-
     }
 }

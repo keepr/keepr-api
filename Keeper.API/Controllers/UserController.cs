@@ -16,10 +16,6 @@ namespace Keeper.API.Controllers
             _userManager = userManager;
         }
 
-        /// <summary>
-        /// Get current user from JWT
-        /// </summary>
-        /// <returns>User</returns>
         [HttpGet("me")]
         public async Task<ActionResult<ResponseModel<UserModel>>> MeAsync()
         {
@@ -34,11 +30,6 @@ namespace Keeper.API.Controllers
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="input">UserUpdateInputModel</param>
-        /// <returns>User</returns>]
         [HttpPut("me")]
         public async Task<ActionResult<ResponseModel<UserModel>>> UpdateAsync([FromBody] UserUpdateInputModel input)
         {
@@ -60,6 +51,21 @@ namespace Keeper.API.Controllers
             else
             {
                 return BadRequest(new ErrorModel("Unable to update User."));
+            }
+        }
+
+        [HttpDelete("me")]
+        public async Task<ActionResult<ResponseModel<string>>> DeleteAsync()
+        {
+            var success = await _userManager.DeleteByIdAsync(CurrentUser.Id);
+
+            if (success)
+            {
+                return Ok(new ResponseModel<string>("User deleted."));
+            }
+            else
+            {
+                return BadRequest(new ErrorModel("Unable to delete User."));
             }
         }
     }

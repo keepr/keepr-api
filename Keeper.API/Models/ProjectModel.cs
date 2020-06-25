@@ -15,6 +15,7 @@ namespace Keeper.API.Models
             this.Currency = project.Currency;
             this.HourlyRate = project.HourlyRate;
             this.Archive = project.Archive;
+            this.ClientId = project.ClientId;
             this.Created = project.Created;
             this.Modified = project.Modified;
         }
@@ -25,6 +26,7 @@ namespace Keeper.API.Models
         public string Currency { get; set; }
         public double HourlyRate { get; set; }
         public bool Archive { get; set; }
+        public int ClientId { get; set; }
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset? Modified { get; set; }
     }

@@ -170,7 +170,24 @@ namespace Keeper.Data.Managers
 
         public async Task<User> GetByIdAsync(int id)
         {
-            return await _dbContext.Users.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
+            return await _dbContext.Users
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<bool> DeleteByIdAsync(int id)
+        {
+            var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == id);
+
+            if (user != null)
+            {
+                _dbContext.Users.Remove(user);
+                await _dbContext.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
         }
 
         #region Private methods
