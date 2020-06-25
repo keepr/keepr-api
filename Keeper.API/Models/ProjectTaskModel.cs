@@ -14,7 +14,6 @@ namespace Keeper.API.Models
             this.Description = task.Description;
             this.Hours = task.Hours;
             this.Date = task.Date;
-            this.ProjectId = task.ProjectId;
             this.Created = task.Created;
             this.Modified = task.Modified;
         }
@@ -23,7 +22,6 @@ namespace Keeper.API.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public double Hours { get; set; }
-        public int ProjectId { get; set; }
         public DateTimeOffset Date { get; set; }
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset? Modified { get; set; }
