@@ -114,6 +114,7 @@ namespace Keeper.Data.Managers
         public async Task<IEnumerable<Project>> GetByClientIdAsync(int clientId, int userId)
         {
             return await _dbContext.Projects
+                .AsNoTracking()
                 .Where(x => x.ClientId == clientId && x.Client.UserId == userId)
                 .ToListAsync();
         }
@@ -121,12 +122,16 @@ namespace Keeper.Data.Managers
         public async Task<Project> GetByIdAsync(int id, int userId)
         {
             return await _dbContext.Projects
+                .AsNoTracking()
+                .Include(x => x.Client)
                 .SingleOrDefaultAsync(x => x.ClientId == id && x.Client.UserId == userId);
         }
 
         public async Task<IEnumerable<Project>> GetByUserIdAsync(int userId)
         {
             return await _dbContext.Projects
+                .AsNoTracking()
+                .Include(x => x.Client)
                 .Where(x => x.Client.UserId == userId)
                 .ToListAsync();
         }

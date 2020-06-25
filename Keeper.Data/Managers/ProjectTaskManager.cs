@@ -84,7 +84,6 @@ namespace Keeper.Data.Managers
         public async Task<bool> DeleteAsync(int id, int userId)
         {
             var task = await _dbContext.ProjectTasks
-                .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id && x.Project.Client.UserId == userId);
 
             if (task != null)

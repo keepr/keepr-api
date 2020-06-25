@@ -20,6 +20,21 @@ namespace Keeper.API.Controllers
             _projectTaskManager = projectTaskManager;
         }
 
+        [HttpGet("")]
+        public async Task<ActionResult<ResponseModel<IEnumerable<ProjectModel>>>> GetProjectsByClientIdAsync(int id)
+        {
+            var projects = await _projectManager.GetByUserIdAsync(CurrentUser.Id);
+
+            if (projects != null)
+            {
+                return Ok(new ResponseModel<IEnumerable<ProjectModel>>(projects.Select(x => new ProjectModel(x))));
+            }
+            else
+            {
+                return BadRequest(new ErrorModel("Unable to retrieve Projects for User."));
+            }
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<ResponseModel<ProjectModel>>> GetByIdAsync(int id)
         {

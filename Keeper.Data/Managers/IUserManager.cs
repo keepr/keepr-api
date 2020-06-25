@@ -66,5 +66,12 @@ namespace Keeper.Data.Managers
         /// <param name="id">id</param>
         /// <returns>User</returns>
         public Task<User> GetByIdAsync(int id);
+
+        /// <summary>
+        /// Delete User account by Id
+        /// </summary>
+        /// <param name="id">user Id</param>
+        /// <returns>true or false depending on success</returns>
+        public Task<bool> DeleteByIdAsync(int id);
     }
 }

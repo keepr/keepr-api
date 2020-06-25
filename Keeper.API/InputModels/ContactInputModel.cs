@@ -1,4 +1,4 @@
-namespace Keeper.API.InputModels
+﻿namespace Keeper.API.InputModels
 {
     public class ContactInputModel
     {
@@ -6,5 +6,6 @@ namespace Keeper.API.InputModels
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public bool? Primary { get; set; }
     }
 }

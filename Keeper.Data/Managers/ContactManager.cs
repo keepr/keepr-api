@@ -39,6 +39,18 @@ namespace Keeper.Data.Managers
 
             if (client != null)
             {
+                // this new contact is going to be the primary contact for the client
+                // remove primary flag from existing primary contact
+                var primaryContact = await _dbContext.Contacts
+                    .SingleOrDefaultAsync(x => x.ClientId == clientId && x.Primary == true);
+
+                if (primaryContact != null)
+                {
+                    primaryContact.Primary = false;
+                    primaryContact.Modified = DateTime.UtcNow;
+                }
+
+
                 var newContact = new Contact()
                 {
                     ClientId = clientId,
@@ -46,6 +58,7 @@ namespace Keeper.Data.Managers
                     LastName = lastName,
                     Email = email,
                     Phone = phone,
+                    Primary = true,
                     Created = DateTime.UtcNow,
                 };
 
@@ -58,7 +71,7 @@ namespace Keeper.Data.Managers
             return null;
         }
 
-        public async Task<Contact> UpdateAsync(int id, string firstName, string lastName, string email, string phone, int userId)
+        public async Task<Contact> UpdateAsync(int id, string firstName, string lastName, string email, string phone, bool? primary, int userId)
         {
             var contact = await _dbContext.Contacts
                 .SingleOrDefaultAsync(x => x.Id == id && x.Client.UserId == userId);
@@ -83,6 +96,22 @@ namespace Keeper.Data.Managers
                 if (!string.IsNullOrEmpty(phone))
                 {
                     contact.Phone = phone;
+                }
+
+                if (primary.HasValue && primary.Value)
+                {
+                    // this contact is going to be the primary contact for the client
+                    // remove primary flag from existing primary contact
+                    var primaryContact = await _dbContext.Contacts
+                        .SingleOrDefaultAsync(x => x.ClientId == contact.ClientId && x.Primary == true);
+                    if (primaryContact != null)
+                    {
+                        primaryContact.Primary = false;
+                        primaryContact.Modified = DateTime.UtcNow;
+                    }
+
+                    // set the primary flag on the contact
+                    contact.Primary = true;
                 }
 
                 contact.Modified = DateTime.UtcNow;
